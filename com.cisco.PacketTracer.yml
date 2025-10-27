@@ -1,22 +1,23 @@
 app-id: com.cisco.PacketTracer
 runtime: org.kde.Platform
-runtime-version: '5.15-22.08'
+runtime-version: "6.8"
 sdk: org.kde.Sdk
 base: io.qt.qtwebengine.BaseApp
-base-version: '5.15-22.08'
+base-version: "6.8"
 command: /app/pt/packettracer
 separate-locales: false
 
-tags: 
-    - proprietary
+tags:
+  - proprietary
 
 finish-args:
-  - --share=ipc
+  # - --share=ipc
   - --share=network
   - --socket=x11
-  - --socket=pulseaudio
+  - --socket=wayland
+  # - --socket=pulseaudio
   - --device=dri
-  - --filesystem=xdg-download
+  # - --filesystem=xdg-download
   - --persist=.
   - --env=TZ=
 
@@ -25,7 +26,7 @@ modules:
     buildsystem: simple
     build-commands:
       - install -D com.cisco.PacketTracer.appdata.xml /app/share/metainfo/com.cisco.PacketTracer.appdata.xml
-      - ar x Packet_Tracer822_amd64_signed.deb
+      - ar x Packet_Tracer_8_2_2_Ubuntu_64bit.deb
       - xz -d data.tar.xz
       - tar -xf data.tar
       - find opt/pt/saves opt/pt/templates opt/pt/templates/environments -type d -exec chmod 755 {} +
@@ -40,8 +41,10 @@ modules:
 
     sources:
       - type: file
-        path: Packet_Tracer822_amd64_signed.deb
+        path: Packet_Tracer_8_2_2_Ubuntu_64bit.deb
         sha256: 6cd2b8891df92d2cad8b6fdc47480fc089de085c4f3fe95eb80d5450a2a7f72d
+      - type: file
+        path: packettracer.patch
       - type: file
         path: com.cisco.PacketTracer.appdata.xml
       - type: file

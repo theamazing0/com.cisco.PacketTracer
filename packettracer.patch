@@ -1,0 +1,6 @@
+PTDIR=/opt/pt
+export LD_LIBRARY_PATH=/opt/pt/bin
+pushd /opt/pt/bin > /dev/null
+-./PacketTracer "$@" > /dev/null 2>&1
++./PacketTracer "$@"
+popd > /dev/null
